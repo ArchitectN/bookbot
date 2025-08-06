@@ -4,11 +4,11 @@ def get_num_words(path):
         content = file.read()
         words = content.split()
         total_words = len(words)
-    return f"{total_words} words found in the document"
+    return total_words
 
 
-def sort(items):
-    return items["num"]
+def sort_high(path):
+    return path["num"]
 
 def get_char_count(path):
     letter_count = {}
@@ -17,9 +17,21 @@ def get_char_count(path):
         content_lower = content.lower()
         char = list(content_lower)
         for item in char:
-            if item not in letter_count:
-                letter_count[item] = 1
-            else:
-                letter_count[item] += 1
-    letter_count.sort(reverse=True, key=sort_on)
+            if item.isalpha():
+                if item not in letter_count:
+                    letter_count[item] = 1
+                else:
+                    letter_count[item] += 1
     return letter_count
+
+def transform_list(char_count):
+    letter_count_dict = []
+    for items in char_count:
+        letter_count_dict.append({"char": items, "num": char_count[items]})
+    letter_count_dict.sort(reverse=True, key=sort_high)
+    return letter_count_dict
+
+
+
+
+        
